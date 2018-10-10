@@ -1,0 +1,15 @@
+# config/routes.yaml
+index:
+    path: /
+    defaults: { _controller: 'App\Controller\CsvController::index' }
+
+adherentbyid:
+    path: /test1/{id}
+    defaults: { _controller: 'App\Controller\CsvController::getAdherentById', id: -1 }
+
+
+adherentsortedwithnb:
+    path: /test2/
+    controller: App\Controller\CsvController::getAllAdherentWithCountSorted
+
+

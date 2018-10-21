@@ -1,6 +1,6 @@
 ###> docker ###
 .docker/data/*
 ###< docker ###
-symfony/var/cache/*
+symfony/var/*
 .idea
 todelete

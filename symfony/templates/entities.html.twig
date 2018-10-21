@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+liste des produits :
+    <table >
+        <tbody style="border:1px solid black" >
+            {% for product in products %}
+                <tr  >
+                    <td style="border:1px solid black">{{ loop.index }}</td>
+                    <td style="border:1px solid black">{{ product.id }}</td>
+                    <td style="border:1px solid black"> {{ product.size }}</td>
+                    <td style="border:1px solid black">{{ product.color }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

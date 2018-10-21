@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 Use App\Entity\UserLabels;
+Use App\Entity\Product;
 
 class CsvController extends Controller
 {

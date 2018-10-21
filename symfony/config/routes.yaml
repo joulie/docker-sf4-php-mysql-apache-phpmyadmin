@@ -12,4 +12,7 @@ adherentsortedwithnb:
     path: /test2/
     controller: App\Controller\CsvController::getAllAdherentWithCountSorted
 
+entitiestemplate:
+    path: /entity/
+    controller: App\Controller\EntityController::index
 

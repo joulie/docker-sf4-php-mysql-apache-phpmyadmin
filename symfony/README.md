@@ -45,3 +45,9 @@ ou sommes nous dans le cadre d'un ESB qui a un format fixe de réception
 * authentification avec token
 * vérification des en-tetes de colonne avec message spécifique
 * vérification si toute une ligne est vide
+
+# usefull tools
+## doctrine
+php bin/console make:entity
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate

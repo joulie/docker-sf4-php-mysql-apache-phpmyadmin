@@ -69,4 +69,17 @@ class CsvController extends Controller
             return $this->serviceJsonCustom->customJsonEnconding("Aucun adhérent n’est présent");
         }
     }
+
+    //  pour la route /test3
+    public function getAllAdherentWithCountSorted2() {
+        // récupération du tableau correspondant à la lecture du fichier .csv
+        $adherents = $this->serviceAdherents->getAdherentsEntities();
+        // si le fichier csv est rempli on renvoie ces résultats sous forme json
+        if (isset($adherents)) {
+            //$this->serviceAdherents->sortAdherents($adherents);
+            return $this->render('test3.html.twig', array('adherents' => $adherents[0], 'titles' => $adherents[1]));
+        } else { // si le fichier csv est vide on renvoie un message spécifique
+            return $this->serviceJsonCustom->customJsonEnconding("Aucun adhérent n’est présent");
+        }
+    }
 }

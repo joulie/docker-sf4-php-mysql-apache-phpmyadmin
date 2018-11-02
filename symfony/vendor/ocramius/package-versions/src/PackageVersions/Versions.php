@@ -37,6 +37,7 @@ final class Versions
   'psr/container' => '1.0.0@b7ce3b176482dbbc1245ebf52b181af44c2cf55f',
   'psr/log' => '1.0.2@4ebe3a8bf773a19edfe0a84b6585ba3d401b724d',
   'psr/simple-cache' => '1.0.1@408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
+  'symfony/asset' => 'v4.1.6@7bec13dad0df8146ee6ba9350203fcc832814bfe',
   'symfony/cache' => 'v4.1.4@b8440ff4635c6631aca21a09ab72e0b7e3a6cb7a',
   'symfony/config' => 'v4.1.4@76015a3cc372b14d00040ff58e18e29f69eba717',
   'symfony/console' => 'v4.1.4@ca80b8ced97cf07390078b29773dc384c39eee1f',

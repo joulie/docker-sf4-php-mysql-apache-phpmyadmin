@@ -16,3 +16,6 @@ entitiestemplate:
     path: /entity/
     controller: App\Controller\EntityController::index
 
+templatetest3:
+    path: /test3/
+    controller: App\Controller\CsvController::getAllAdherentWithCountSorted2

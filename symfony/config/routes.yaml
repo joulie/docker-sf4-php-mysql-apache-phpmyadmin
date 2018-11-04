@@ -18,4 +18,12 @@ entitiestemplate:
 
 templatetest3:
     path: /test3/
-    controller: App\Controller\CsvController::getAllAdherentWithCountSorted2
+    controller: App\Controller\CsvController::test3
+
+templatetest4:
+    path: /test4/
+    controller: App\Controller\CsvController::test4
+
+templatetest5:
+    path: /test5/
+    controller: App\Controller\CsvController::test5

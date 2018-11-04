@@ -2,15 +2,10 @@
 
 namespace App\Controller;
 
-
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-Use App\Entity\UserLabels;
-Use App\Entity\Product;
 Use App\Service\ServiceAdherents;
 use App\Service\ServiceJsonCustom;
+use Unirest;
 
 class CsvController extends Controller
 {
@@ -70,8 +65,58 @@ class CsvController extends Controller
         }
     }
 
-    //  pour la route /test3
-    public function getAllAdherentWithCountSorted2() {
+    //  pour la route /test3 : affichage du résultat sous forme lisible
+    public function test3() {
+        // récupération du tableau correspondant à la lecture du fichier .csv
+        $adherents = $this->serviceAdherents->getAdherentsEntities();
+        // si le fichier csv est rempli on renvoie ces résultats sous forme json
+        if (isset($adherents)) {
+            //$this->serviceAdherents->sortAdherents($adherents);
+            return $this->render('test3.html.twig', array('adherents' => $adherents[0], 'titles' => $adherents[1]));
+        } else { // si le fichier csv est vide on renvoie un message spécifique
+            return $this->serviceJsonCustom->customJsonEnconding("Aucun adhérent n’est présent");
+        }
+    }
+
+    //  pour la route /test4 : affichage du résultat par récupération du webservice via appel curl
+    public function test4() {
+        $headers = array('Accept' => 'application/json');
+        //$query = array('q' => 'Frank sinatra', 'type' => 'track');
+
+        $response = Unirest\Request::get('http://localhost/test1',$headers/*,$query*/);
+        // or use a plain text request
+        // $response = Unirest\Request::get('https://api.spotify.com/v1/search?q=Frank%20sinatra&type=track');
+
+        // Display the result
+        dump($response->body);
+
+
+        // récupération du tableau correspondant à la lecture du fichier .csv
+        $adherents = $this->serviceAdherents->getAdherentsEntities();
+        // si le fichier csv est rempli on renvoie ces résultats sous forme json
+        if (isset($adherents)) {
+            //$this->serviceAdherents->sortAdherents($adherents);
+            return $this->render('test4.html.twig', array('adherents' => $adherents[0], 'titles' => $adherents[1]));
+        } else { // si le fichier csv est vide on renvoie un message spécifique
+            return $this->serviceJsonCustom->customJsonEnconding("Aucun adhérent n’est présent");
+        }
+    }
+
+    //  pour la route /test5 : affichage du résultat par récupération intra sf
+    public function test5() {
+        $data = $this->forward('app.csvcontroller:getAdherentById', array('id' => -1));
+        $datadecoded = json_decode($data->getContent(), true);
+
+        if (isset($datadecoded)) {
+            //$this->serviceAdherents->sortAdherents($adherents);
+            return $this->render('test5.html.twig', array('adherents' => $datadecoded));
+        } else { // si le fichier csv est vide on renvoie un message spécifique
+            return $this->serviceJsonCustom->customJsonEnconding("Aucun adhérent n’est présent");
+        }
+    }
+
+    //  pour la route /test6 : possibilité de refresh
+    public function test6() {
         // récupération du tableau correspondant à la lecture du fichier .csv
         $adherents = $this->serviceAdherents->getAdherentsEntities();
         // si le fichier csv est rempli on renvoie ces résultats sous forme json

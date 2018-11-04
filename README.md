@@ -17,3 +17,7 @@ root@75e4e71fd991:/home/wwwroot/sf4/var# mkdir log
 root@75e4e71fd991:/home/wwwroot/sf4/var# chmod 777 -R log/  
 root@75e4e71fd991:/home/wwwroot/sf4/var# 
 ```
+
+use command
+
+appel curl : le container php dit connexion refused

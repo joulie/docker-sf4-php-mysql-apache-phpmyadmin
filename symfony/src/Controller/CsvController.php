@@ -115,13 +115,13 @@ class CsvController extends Controller
         }
     }
 
-    //  pour la route /test5 : affichage du résultat par récupération intra sf
+    //  pour la route /test6 : affichage du résultat par récupération intra sf
     public function test6() {
         return $this->render('test6.html.twig');
     }
 
-    //  pour la route /ajax : possibilité de refresh
-    public function ajax() {
+    //  pour la route /test6ajax : possibilité de refresh
+    public function test6ajax() {
         $data = $this->forward('app.csvcontroller:getAdherentById', array('id' => -1));
         $datadecoded = json_decode($data->getContent(), true);
 

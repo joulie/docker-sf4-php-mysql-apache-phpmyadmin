@@ -1,53 +1,40 @@
 # 1. Principe de l'appli : webservice
 Vous devez réaliser un Web Service en langage PHP qui permet de récupérer les informations d’un « adhérent » à partir de son « identifiant ». Les données (liste des adhérents) sont stockées dans un fichier CSV.
 
-# 2. choix  du framework et des composants
-Symfony 4.1 : j'aime symfony et je n'avais pas testé la V4
-choix d'une API REST : plus lisible que SOAP
-MVC : 
-* model : src/Entity/Userlabels.php
-* vue : une homepage index.html.twig et gestion custom des 404 : templates\bundles\TwigBundle\Exception\error404.html.twig
-* Controller : src/Controller/CsvController.php
+# 2.1 test1 : http://localhost/test1
+récupérer en json les données d'un fichier .csv et les renvoyer
+* en totalité via l'URL http://localhost/test1 => renvoie en json les données du fichier csv
+* les données d'une seule ligne en passant son id via http://localhost/test1/6 (ou autre identifiant) => renvoie en json les données de la ligne correspondant à l'id séléctionné
+* si id inexistant un message spécifique via http://localhost/test1/9 (ou autre identififiant non existant) 
+# 2.2 test2 : http://localhost/test2 
+récupérer les données d'un fichier avec le compte du nombre de lignes
+* en totalité via l'URL http://localhost/test2  => renvoie en json le compte des lignes et les données du fichier csv 
+* tester la meme URL avec un fichier vide pour avoir un message spécifique en json
+* tester la meme URL avec certaines données vides ou un ligne entière vide
+* tester la meme URL avec une absence de fichier
+le fichier csv est hébergé dans public/cvs/donnees.csv
+# 2.3 test3 : http://localhost/test3
+affichage du résultat sous forme lisible (template et plus json)
+# 2.4 test4 : http://localhost/test4  => non fonctionnel
+affichage du résultat sous template via récupération des données dans un appel curl 
+# 2.5 test5 : http://localhost/test5
+affichage du résultat sous tempplate via récupération des données dans un appel d'un controller de la même appli sous forme de service
+# 2.6 test6 : http://localhost/test6
+affichage du résultat sous template via récupération des données dans un appel ajax inclus dans le template qui appelle  un controller de la même appli (nécessite un 2eme controller/template pour les données à rafraichir)
 
-# 3. pré-requis 
-* apache2
-* php 7.1
-
-# 4.1. installation avec .zip (demandé dans les specifications): 
-* copier le fichier AJE.zip fourni dans le mail à la racine www de votre serveur apache
-* décompresser ce fichier et supprimer l'archive AJE.zip
-
-# 4.2. installation via http : 
-dans votre répertoire www :
-* git clone https://github.com/joulie/demo1.git .
-* php composer.phar install
-* (Cas 2 : eventuellement si problème avec le .htaccess : php -S 127.0.0.1:8000 -t public)
-
-# 5. éléments réalisés : 
-* une homepage qui liste les actions possibles via l'URL http://localhost/
-* vous trouverez les résultats du test1 via l'URL http://localhost/test1 : test1.1 via http://localhost/test1/6 (ou autre identifiant) - test1.2 via http://localhost/test1/9 (ou autre identififiant non existant) 
-* vous trouverez les résultats du test2 via l'URL http://localhost/test2 : test 2.1 via http://localhost/test2 - test 2.2 avec un fichier .csv vide (hébergé ici dans hardis\public\donnees.csv - test 2.3 en supprimant le fichier.csv
-
-# 6. améliorations non réalisées faute de temps :
+RAF
+```
 * passer les routes et paramètres en annotation
-* gérer une mise en page html pour les éléments non Json
-* une icone 
+* debugger test4 l'appel curl qui ne passe pas à cause d'une config docker
+* tester les commandes
+* enregistrer les données en base 
+* rafraichir les données en base
+* utiliser les "command" pour importer le fichier csv en base 
 
-# 7. réponses au document : partie 2 – Réflexion
-* les choix de conception ont été princiapelement orientés sur le temps imparti et le manque d'information sur l'utilisation de ce webservice
-par exemple est-ce que les noms des colonnes sont fixes, est-ce que ça doit servir dans un contexte international, est-ce que l'utisateur peut augmenter le nombre de colonnes 
-ou sommes nous dans le cadre d'un ESB qui a un format fixe de réception
-* la gestion des erreurs a été orientée temps imparti / réponse au besoin, sans prendre en compte des bonne pratiques comme une mise en page des 404, seul le texte brut est renvoyé
-* la création d'une entité a été principalement orientée "spécification en MVC"
-* la création d'une homepage a été principalement orientée "spécification en MVC"
-
-# 8. Propositions
+Propositions
 * authentification avec token
 * vérification des en-tetes de colonne avec message spécifique
-* vérification si toute une ligne est vide
-
 # usefull tools
-## doctrine
-php bin/console make:entity
-php bin/console make:migration
-php bin/console doctrine:migrations:migrate
+```
+
+

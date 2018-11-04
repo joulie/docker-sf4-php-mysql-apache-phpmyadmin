@@ -30,6 +30,7 @@ RAF
 * enregistrer les données en base 
 * rafraichir les données en base
 * utiliser les "command" pour importer le fichier csv en base 
+* fixer les version dev du composer.json sur des vraies versions
 
 Propositions
 * authentification avec token

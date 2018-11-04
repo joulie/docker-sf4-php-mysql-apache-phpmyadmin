@@ -4,3 +4,6 @@
 symfony/var/*
 .idea
 .env
+symfony/vendor/composer/autoload_psr4.php
+symfony/vendor/composer/autoload_static.php
+

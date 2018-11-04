@@ -1,0 +1,25 @@
+    <table class="table table-sm table-striped">
+        <thead>
+        <tr class="table-success">
+            {% for key in adherents[1]|keys %}
+                <th scope="col">{{ key }}</th>
+            {% endfor %}
+        </tr>
+
+        </thead>
+        <tbody>
+        {% for adherent in adherents %}
+            <tr>
+                {% for key,value in adherent %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+

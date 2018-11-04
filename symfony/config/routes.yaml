@@ -27,3 +27,11 @@ templatetest4:
 templatetest5:
     path: /test5/
     controller: App\Controller\CsvController::test5
+
+templatetest6:
+    path: /test6/
+    controller: App\Controller\CsvController::test6
+
+app_bundle_route:
+    path:     /ajax_request
+    defaults: { _controller: App\Controller\CsvController::ajax }

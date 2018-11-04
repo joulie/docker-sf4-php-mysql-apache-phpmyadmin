@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdc3206efc7845c1a53c19015eab0a8f1
+class ComposerStaticInitf9c0085fcad03cfbc8d93750b93bde1d
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -283,10 +283,10 @@ class ComposerStaticInitdc3206efc7845c1a53c19015eab0a8f1
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+            0 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
             1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
             2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
-            3 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
+            3 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -349,10 +349,10 @@ class ComposerStaticInitdc3206efc7845c1a53c19015eab0a8f1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdc3206efc7845c1a53c19015eab0a8f1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdc3206efc7845c1a53c19015eab0a8f1::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitdc3206efc7845c1a53c19015eab0a8f1::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitdc3206efc7845c1a53c19015eab0a8f1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf9c0085fcad03cfbc8d93750b93bde1d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf9c0085fcad03cfbc8d93750b93bde1d::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf9c0085fcad03cfbc8d93750b93bde1d::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitf9c0085fcad03cfbc8d93750b93bde1d::$classMap;
 
         }, null, ClassLoader::class);
     }

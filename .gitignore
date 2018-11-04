@@ -3,4 +3,4 @@
 ###< docker ###
 symfony/var/*
 .idea
-todelete
+.env

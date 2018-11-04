@@ -1,6 +1,5 @@
 FROM php:7.2.3-fpm
 
-##<romaricp>##
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
     build-essential locales acl mailutils wget nodejs zip unzip \
@@ -35,7 +34,12 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
 WORKDIR /home/wwwroot/
-##</romaricp>##
+
+# entrypoint
+COPY ./entrypoint.sh /usr/local/bin/entrypoint
+RUN chmod +x /usr/local/bin/entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint"]
+
 
 EXPOSE 9000
 CMD ["php-fpm"]

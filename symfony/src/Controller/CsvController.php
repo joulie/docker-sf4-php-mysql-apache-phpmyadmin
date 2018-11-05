@@ -6,7 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 Use App\Service\ServiceAdherents;
 use App\Service\ServiceJsonCustom;
 use Unirest;
+use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/")
+ */
 class CsvController extends Controller
 {
     //declaration des services qui vont être utilisés
@@ -20,15 +24,23 @@ class CsvController extends Controller
     }
     // fin de déclaration des services
 
-    // afin de respecter la spécification MVC du test une page d'accueil permettra de faire une vue, comme le reste des demandes est du webservice => json
+    /**
+     * @Route("/", name="index")
+     * afin de respecter la spécification MVC du test une page d'accueil permettra de faire une vue, comme le reste des demandes est du webservice => json
+     */
     public function index()
     {
          return $this->render('index.html.twig');
     }
 
-    // pour la route test1 : si pas de paramètre dans la request_uri lister tous les comptes
-    // si un paramètre est passé on renvoie les détail d'un user ou un message "Aucun adhérent ne correspond à votre demande"
-    public function getAdherentById($id)
+    /**
+    * @Route("/test1/{id}", name="test1route")
+    * @param string $id
+    * @return json
+    * pour la route test1 : si pas de paramètre dans la request_uri lister tous les comptes
+    * si un paramètre est passé on renvoie les détail d'un user ou un message "Aucun adhérent ne correspond à votre demande"
+    */
+    public function getAdherentById($id=-1)
     {
         // pas de paramètre passé dans l'URL => resultat total
         if ($id == -1){
@@ -48,11 +60,15 @@ class CsvController extends Controller
                 }
             }
             // si l'identifiant existe on renvoie les détails de l'adhérent, sinon un message d'erreur
-            return $this->serviceJsonCustom->customJsonEnconding(isset($returnKey) ? $adherents[$returnKey] : "Aucun adhérent ne correspond à votre demande" );
+            return $this->serviceJsonCustom->customJsonEnconding(isset($returnKey) ? array(1 => $adherents[$returnKey]) : "Aucun adhérent ne correspond à votre demande" );
         }
     }
 
-    //  pour la route /test2
+    /**
+    * @Route("/test2", name="test2route")
+    * @return json
+    * pour la route /test2 : retourner tous les adherents triés
+    */
     public function getAllAdherentWithCountSorted() {
         // récupération du tableau correspondant à la lecture du fichier .csv
         $adherents = $this->serviceAdherents->getAdherents();
@@ -65,7 +81,11 @@ class CsvController extends Controller
         }
     }
 
-    //  pour la route /test3 : affichage du résultat sous forme lisible
+    /**
+     * @Route("/test3", name="test3route")
+     * @return json
+     * pour la route /test3 : affichage du résultat sous forme lisible
+     */
     public function test3() {
         // récupération du tableau correspondant à la lecture du fichier .csv
         $adherents = $this->serviceAdherents->getAdherentsEntities();
@@ -78,31 +98,31 @@ class CsvController extends Controller
         }
     }
 
-    //  pour la route /test4 : affichage du résultat par récupération du webservice via appel curl
-    public function test4() {
+    /**
+     * @Route("/test4/{id}", name="test4route")
+     * @param string $id
+     * @return template
+     * pour la route /test4 : affichage du résultat par récupération du webservice via appel curl
+     */
+    public function test4($id=-1) {
         $headers = array('Accept' => 'application/json');
-        //$query = array('q' => 'Frank sinatra', 'type' => 'track');
+        $response = Unirest\Request::get('http://sf4.local/test1/'.$id,$headers);
+        $dataencoded = json_encode($response->body, true);
+        $datadecoded=json_decode($dataencoded,true);
+        dump($datadecoded);
 
-        $response = Unirest\Request::get('http://sf4.local/test1',$headers/*,$query*/);
-        // or use a plain text request
-        // $response = Unirest\Request::get('https://api.spotify.com/v1/search?q=Frank%20sinatra&type=track');
-
-        // Display the result
-        dump($response->body);
-
-
-        // récupération du tableau correspondant à la lecture du fichier .csv
-        $adherents = $this->serviceAdherents->getAdherentsEntities();
-        // si le fichier csv est rempli on renvoie ces résultats sous forme json
-        if (isset($adherents)) {
+        if (isset($datadecoded)) {
             //$this->serviceAdherents->sortAdherents($adherents);
-            return $this->render('test4.html.twig', array('adherents' => $adherents[0], 'titles' => $adherents[1]));
+            return $this->render('test4.html.twig', array('adherents' => $datadecoded));
         } else { // si le fichier csv est vide on renvoie un message spécifique
             return $this->serviceJsonCustom->customJsonEnconding("Aucun adhérent n’est présent");
         }
     }
 
-    //  pour la route /test5 : affichage du résultat par récupération intra sf
+    /**
+     * @Route("/test5", name="test5route")
+     * pour la route /test5 : affichage du résultat par récupération intra sf
+     */
     public function test5() {
         $data = $this->forward('app.csvcontroller:getAdherentById', array('id' => -1));
         $datadecoded = json_decode($data->getContent(), true);
@@ -115,12 +135,18 @@ class CsvController extends Controller
         }
     }
 
-    //  pour la route /test6 : récupération en ajax de l'apel aux données lues dans le fichier csv
+    /**
+     * @Route("/test6", name="test6route")
+     * pour la route /test6 : récupération en ajax de l'apel aux données lues dans le fichier csv
+     */
     public function test6() {
         return $this->render('test6.html.twig');
     }
 
-    //  pour la route /test6ajax : possibilité de refresh
+    /**
+     * @Route("/test6ajax", name="test6ajaxroute")
+     * pour la route /test6ajax : possibilité de refresh
+     */
     public function test6ajax() {
         $data = $this->forward('app.csvcontroller:getAdherentById', array('id' => -1));
         $datadecoded = json_decode($data->getContent(), true);

@@ -1,37 +1,5 @@
 # config/routes.yaml
-index:
-    path: /
-    defaults: { _controller: 'App\Controller\CsvController::index' }
-
-test1route:
-    path: /test1/{id}
-    defaults: { _controller: 'App\Controller\CsvController::getAdherentById', id: -1 }
-
-
-test2route:
-    path: /test2/
-    controller: App\Controller\CsvController::getAllAdherentWithCountSorted
 
 entitiestemplate:
     path: /entity/
-    controller: App\Controller\EntityController::index
-
-test3route:
-    path: /test3/
-    controller: App\Controller\CsvController::test3
-
-test4route:
-    path: /test4/
-    controller: App\Controller\CsvController::test4
-
-test5route:
-    path: /test5/
-    controller: App\Controller\CsvController::test5
-
-test6route:
-    path: /test6/
-    controller: App\Controller\CsvController::test6
-
-test6ajaxroute:
-    path:     /test6ajax
-    defaults: { _controller: App\Controller\CsvController::test6ajax }
+    controller: App\Control/**

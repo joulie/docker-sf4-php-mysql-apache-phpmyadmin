@@ -109,7 +109,6 @@ class CsvController extends Controller
         $response = Unirest\Request::get('http://sf4.local/test1/'.$id,$headers);
         $dataencoded = json_encode($response->body, true);
         $datadecoded=json_decode($dataencoded,true);
-        dump($datadecoded);
 
         if (isset($datadecoded)) {
             //$this->serviceAdherents->sortAdherents($adherents);

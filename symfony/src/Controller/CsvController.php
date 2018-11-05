@@ -83,7 +83,7 @@ class CsvController extends Controller
         $headers = array('Accept' => 'application/json');
         //$query = array('q' => 'Frank sinatra', 'type' => 'track');
 
-        $response = Unirest\Request::get('http://localhost/test1',$headers/*,$query*/);
+        $response = Unirest\Request::get('http://sf4.local/test1',$headers/*,$query*/);
         // or use a plain text request
         // $response = Unirest\Request::get('https://api.spotify.com/v1/search?q=Frank%20sinatra&type=track');
 
@@ -115,7 +115,7 @@ class CsvController extends Controller
         }
     }
 
-    //  pour la route /test6 : affichage du résultat par récupération intra sf
+    //  pour la route /test6 : récupération en ajax de l'apel aux données lues dans le fichier csv
     public function test6() {
         return $this->render('test6.html.twig');
     }

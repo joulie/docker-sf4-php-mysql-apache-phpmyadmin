@@ -10,6 +10,11 @@ services:
           - ./symfony:/home/wwwroot/sf4
         depends_on:
           - php
+        networks:
+          default:
+            aliases:
+             - sf4.local
+             - php.alex
 
     mysql:
         image: mysql

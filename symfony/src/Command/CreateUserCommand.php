@@ -2,17 +2,17 @@
 // src/Command/CreateUserCommand.php
 namespace App\Command;
 
-use Symfony\Component\Console\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateUserCommand extends Command
+class CreateUserCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('app:create-user')
+            ->setName('test:create:user')
 
             // the short description shown while running "php bin/console list"
             ->setDescription('Creates a new user.')
@@ -34,13 +34,14 @@ class CreateUserCommand extends Command
 
         // the value returned by someMethod() can be an iterator (https://secure.php.net/iterator)
         // that generates and returns the messages with the 'yield' PHP keyword
-        $output->writeln($this->someMethod());
+       // $output->writeln($this->someMethod());
 
         // outputs a message followed by a "\n"
         $output->writeln('Whoa!');
 
         // outputs a message without adding a "\n" at the end of the line
         $output->write('You are about to ');
-        $output->write('create a user.');
+        $output->write('create a user. ');
+        $output->write("\n");
     }
 }

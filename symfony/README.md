@@ -18,7 +18,7 @@ affichage du résultat sous forme lisible (template et plus json)
 # 2.4 test4 : http://localhost/test4 
 affichage du résultat sous template via récupération des données dans un appel curl, on peut également passer un identifiant en paramètre
 # 2.5 test5 : http://localhost/test5
-affichage du résultat sous tempplate via récupération des données dans un appel d'un controller de la même appli sous forme de service
+affichage du résultat sous template via récupération des données dans un appel d'un controller de la même appli sous forme de service
 # 2.6 test6 : http://localhost/test6
 affichage du résultat sous template via récupération des données dans un appel ajax inclus dans le template qui appelle un controller de la même appli (nécessite un 2eme controller/template pour les données à rafraichir)
 

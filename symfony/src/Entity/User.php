@@ -3,14 +3,33 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ */
 class User
 {
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
     protected $id;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     protected $lastName;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     protected $firstName;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     protected $phoneNumber;
 
 

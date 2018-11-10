@@ -59,7 +59,7 @@ class ImportCommand extends Command
         foreach($data as $row) {
 
             $user = $em->getRepository('App::User')
-                ->findOneByEmail($row['nom']);
+                ->findOneByLastName($row['nom']);
 
             // If the user doest not exist we create one
             if(!is_object($user)){

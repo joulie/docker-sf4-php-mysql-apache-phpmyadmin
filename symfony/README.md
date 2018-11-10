@@ -14,13 +14,15 @@ récupérer les données d'un fichier avec le compte du nombre de lignes
 * tester la meme URL avec une absence de fichier
 le fichier csv est hébergé dans public/cvs/donnees.csv
 # 2.3 test3 : http://localhost/test3
-affichage du résultat sous forme lisible (template et plus json)
+affichage du résultat sous forme lisible (template au lieu de json)
 # 2.4 test4 : http://localhost/test4 
 affichage du résultat sous template via récupération des données dans un appel curl, on peut également passer un identifiant en paramètre
 # 2.5 test5 : http://localhost/test5
 affichage du résultat sous template via récupération des données dans un appel d'un controller de la même appli sous forme de service
 # 2.6 test6 : http://localhost/test6
 affichage du résultat sous template via récupération des données dans un appel ajax inclus dans le template qui appelle un controller de la même appli (nécessite un 2eme controller/template pour les données à rafraichir)
+# 2.7 une commande qui insère les données en base
+
 
 RAF
 ```

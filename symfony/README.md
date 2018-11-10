@@ -22,15 +22,15 @@ affichage du résultat sous template via récupération des données dans un app
 # 2.6 test6 : http://localhost/test6
 affichage du résultat sous template via récupération des données dans un appel ajax inclus dans le template qui appelle un controller de la même appli (nécessite un 2eme controller/template pour les données à rafraichir)
 # 2.7 une commande qui insère les données en base
+pouvoir insérer les données du fichier csv en BDD via une ligne de commande dans la console
+# 2.8 pouvoir uploader le fichier csv via interface et refresh template ajax avec fichier de log actions
+
+# 2.9 importer une database au démarrage du docker
 
 
 RAF
 ```
-* passer les routes et paramètres en annotation
-* tester les commandes
-* enregistrer les données en base 
 * rafraichir les données en base
-* utiliser les "command" pour importer le fichier csv en base 
 * fixer les version dev du composer.json sur des vraies versions
 
 Propositions

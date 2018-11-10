@@ -157,4 +157,20 @@ class CsvController extends Controller
             return $this->serviceJsonCustom->customJsonEnconding("Aucun adhérent n’est présent");
         }
     }
+
+    /**
+     * @Route("/test7", name="test7route")
+     * pour la route /test7 : insertion en base des donnees du fichier csv
+     */
+    public function test7() {
+        $data = $this->forward('app.csvcontroller:getAdherentById', array('id' => -1));
+        $datadecoded = json_decode($data->getContent(), true);
+
+        if (isset($datadecoded)) {
+            //$this->serviceAdherents->sortAdherents($adherents);
+            return $this->render('test5.html.twig', array('adherents' => $datadecoded));
+        } else { // si le fichier csv est vide on renvoie un message spécifique
+            return $this->serviceJsonCustom->customJsonEnconding("Aucun adhérent n’est présent");
+        }
+    }
 }

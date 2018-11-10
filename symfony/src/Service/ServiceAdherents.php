@@ -70,6 +70,7 @@ class ServiceAdherents
                     // l'utilisation d'une entité pour ce cas est uniquement dans le cadre du test pour respeceter le modele MVC mais n'est pas le fruit d'un choix technique
 
                     $userLabels->setId($data[0]);
+                    $userLabels->setIdCsv($data[0]);
                     $userLabels->setLastName($data[1]);
                     $userLabels->setFirstName($data[2]);
                     $userLabels->setPhoneNumber($data[3]);

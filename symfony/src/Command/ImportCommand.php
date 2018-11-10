@@ -2,17 +2,28 @@
 
 namespace App\Command;
 
-//use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Command\Command;
+use App\Entity\User;
+use App\Entity\UserLabels;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
-use App\Service\ConvertCsvToArray;
+Use App\Service\ServiceAdherents;
+use App\Service\ServiceJsonCustom;
 
-use App\Entity\User;
-
-class ImportCommand extends Command
+class ImportCommand extends ContainerAwareCommand
 {
+    //declaration des services qui vont être utilisés
+    private $serviceAdherents;
+    private $serviceJsonCustom;
+    public function __construct(ServiceAdherents $serviceAdherents, ServiceJsonCustom $serviceJsonCustom)
+    {
+        $this->serviceAdherents = $serviceAdherents;
+        $this->serviceJsonCustom = $serviceJsonCustom;
+        //$this->mailer = $mailer;
+        parent::__construct();
+    }
+    // fin de déclaration des services
 
     protected function configure()
     {
@@ -26,28 +37,32 @@ class ImportCommand extends Command
     {
         // Showing when the script is launched
         $now = new \DateTime();
-        $output->writeln('<comment>Start : ' . $now->format('d-m-Y G:i:s') . ' ---</comment>');
+        $output->writeln('<comment>Start : ' . $now->format('d-m-Y G:i:s') . ' </comment>');
 
         // Importing CSV on DB via Doctrine ORM
         $this->import($input, $output);
 
         // Showing when the script is over
         $now = new \DateTime();
-        $output->writeln('<comment>End : ' . $now->format('d-m-Y G:i:s') . ' ---</comment>');
+        $output->writeln('');
+        $output->writeln('<comment>End : ' . $now->format('d-m-Y G:i:s') . ' </comment>');
     }
 
     protected function import(InputInterface $input, OutputInterface $output)
     {
         // Getting php array of data from CSV
         $data = $this->get($input, $output);
+        $usersLabels = $data[1];
+        $adherents = $data[0];
 
         // Getting doctrine manager
         $em = $this->getContainer()->get('doctrine')->getManager();
         // Turning off doctrine default logs queries for saving memory
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
 
+
         // Define the size of record, the frequency for persisting the data and the current index of records
-        $size = count($data);
+        $size = count($adherents);
         $batchSize = 20;
         $i = 1;
 
@@ -55,23 +70,37 @@ class ImportCommand extends Command
         $progress = new ProgressBar($output, $size);
         $progress->start();
 
-        // Processing on each row of data
-        foreach($data as $row) {
+        dump($usersLabels);
+        // Updating columns names for traductions at every import
+        $userLablesToPersist = new UserLabels();
+        $userLablesToPersist->setIdCsv($usersLabels->getIdCsv());
+        $userLablesToPersist->setLastName($usersLabels->getLastName());
+        $userLablesToPersist->setFirstName($usersLabels->getFirstName());
+        $userLablesToPersist->setPhoneNumber($usersLabels->getPhoneNumber());
+        $em->persist($userLablesToPersist);
+        $em->flush();
 
-            $user = $em->getRepository('App::User')
-                ->findOneByLastName($row['nom']);
+        // Processing on each row of data
+        foreach($adherents as $row) {
+            $output->writeln('');
+            echo $row['id'];echo " ";
+            echo $row['lastName'];echo " ";
+            echo $row['firstName'];echo " ";
+            echo $row['phoneNumber'];echo " ";
+
+
+            $user = $em->getRepository('App:User')->findOneByLastName($row['lastName']);
 
             // If the user doest not exist we create one
             if(!is_object($user)){
                 $user = new User();
-                $user->setNom($row['nom']);
             }
 
             // Updating info
-            $user->setLastName($row['lastname']);
-            $user->setFirstName($row['firstname']);
-
-            // Do stuff here !
+            $user->setIdCsv($row['id']);
+            $user->setLastName($row['lastName']);
+            $user->setFirstName($row['firstName']);
+            $user->setPhoneNumber($row['phoneNumber']);
 
             // Persisting the current user
             $em->persist($user);
@@ -100,19 +129,21 @@ class ImportCommand extends Command
         $em->clear();
 
         // Ending the progress bar process
+        $output->writeln('');
         $progress->finish();
     }
 
     protected function get(InputInterface $input, OutputInterface $output)
     {
         // Getting the CSV from filesystem
-        $fileName = 'web/uploads/import/users.csv';
+        //$fileName = 'csv/donnees.csv';
 
+        $adherents = $this->serviceAdherents->getAdherentsEntities();
         // Using service for converting CSV to PHP Array
-        $converter = $this->getContainer()->get('import.csvtoarray');
-        $data = $converter->convert($fileName, ';');
+        //$converter = $this->getContainer()->get('import.csvtoarray');
+        //$data = $converter->convert($fileName, ';');
 
-        return $data;
+        return $adherents;
     }
 
 }

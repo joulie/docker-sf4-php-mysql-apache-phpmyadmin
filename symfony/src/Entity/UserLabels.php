@@ -20,6 +20,11 @@ class UserLabels
     /**
      * @ORM\Column(type="string", length=255)
      */
+    protected $idCsv;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     protected $lastName;
 
     /**
@@ -41,6 +46,16 @@ class UserLabels
     public function getId()
     {
         return $this->id;
+    }
+
+
+    public function setIdCsv($idCsv)
+    {
+        $this->idCsv = $idCsv;
+    }
+    public function getIdCsv()
+    {
+        return $this->idCsv;
     }
 
     public function setLastName($lastName)

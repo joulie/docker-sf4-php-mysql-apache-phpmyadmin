@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateUserCommand extends ContainerAwareCommand
+class TestCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('test:user')
+            ->setName('test:test')
 
             // the short description shown while running "php bin/console list"
             ->setDescription('Creates a new user.')

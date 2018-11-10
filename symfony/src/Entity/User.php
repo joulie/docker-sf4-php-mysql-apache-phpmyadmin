@@ -18,6 +18,11 @@ class User
     protected $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $idCsv;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     protected $lastName;
@@ -32,8 +37,6 @@ class User
      */
     protected $phoneNumber;
 
-
-
     public function setId($id)
     {
         $this->id = $id;
@@ -41,6 +44,15 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setIdCsv($idCsv)
+    {
+        $this->idCsv = $idCsv;
+    }
+    public function getIdCsv()
+    {
+        return $this->idCsv;
     }
 
     public function setLastName($lastName)

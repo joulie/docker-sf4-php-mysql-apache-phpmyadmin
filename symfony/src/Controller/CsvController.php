@@ -7,6 +7,9 @@ Use App\Service\ServiceAdherents;
 use App\Service\ServiceJsonCustom;
 use Unirest;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Product;
+use App\Form\ProductType;
 
 /**
  * @Route("/")
@@ -162,15 +165,31 @@ class CsvController extends Controller
      * @Route("/test7", name="test7route")
      * pour la route /test7 : insertion en base des donnees du fichier csv
      */
-    public function test7() {
-        $data = $this->forward('app.csvcontroller:getAdherentById', array('id' => -1));
-        $datadecoded = json_decode($data->getContent(), true);
+    public function test7(Request $request) {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
 
-        if (isset($datadecoded)) {
-            //$this->serviceAdherents->sortAdherents($adherents);
-            return $this->render('test5.html.twig', array('adherents' => $datadecoded));
-        } else { // si le fichier csv est vide on renvoie un message spécifique
-            return $this->serviceJsonCustom->customJsonEnconding("Aucun adhérent n’est présent");
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $file stores the uploaded PDF file
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $product->getBrochure();
+
+            $fileName = 'donnees.csv';
+            // Move the file to the directory where datas are stored
+            try {
+                $file->move(
+                    $this->getParameter('brochures_directory'),
+                    $fileName
+                );
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+            $product->setBrochure($fileName);
         }
+
+        return $this->render('test7.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }

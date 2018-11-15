@@ -27,6 +27,11 @@ pouvoir insérer les données du fichier csv en BDD via une ligne de commande da
 
 # 2.9 importer une database au démarrage du docker
 
+# 2.10 inclure une recherche par nom
+
+# 2.11 ajouter des relations
+
+#inclure : passer les noms de serveurs ou autres en paramètres yml
 
 RAF
 ```

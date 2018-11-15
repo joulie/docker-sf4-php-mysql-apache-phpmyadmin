@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills float-right">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Import / Export Csv</h3>
+        </div>
+
+        <div class="jumbotron">
+            <p>
+                <button class="ajax btn btn-lg btn-success">Refresh datas</button>
+                <button class="loadfile btn btn-lg btn-success" role="button">Import New File</button>
+            </p>
+
+            <div id="loadfilediv">
+                <h1>update csv file to refresh donnees.csv</h1>
+                {{ form_start(form) }}
+                {{ form_row(form.brochure) }}
+                <input name="sub_type1_sap" class="button btn btn-lg btn-success" value="Send" type="submit"/>
+                {{ form_end(form) }}
+                <br>
+            </div>
+            <div id="myajaxdiv">
+                <p>test myajaxdiv</p>
+            </div>
+
+            <div class="row" style="">
+                <div class="col-sm-4">
+                    <div id="uploadfilediv">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>©Alexandre Joulie 2018</p>
+        </footer>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#loadfilediv").hide();
+
+            function ajax1() {
+                $.ajax({
+                    url: '{{ (path('test6ajaxroute')) }}',
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        console.log(data)
+                        $('#myajaxdiv').html(data);
+                    },
+                    async: true
+                });
+                return false;
+            }
+
+            ajax1();
+            $(document).on('click', 'button.ajax', function () {
+                ajax1();
+            });
+            $(document).on('click', 'button.loadfile', function () {
+                $("#loadfilediv").toggle();
+            });
+        });
+    </script>
+{% endblock %}
